@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: is219-ugc
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://db:5432/ugc}
+    username: ${DATABASE_USER:ugc}
+    password: ${DATABASE_PASSWORD:ugc}
+  sql:
+    init:
+      mode: never
+  ai:
+    model:
+      chat: none
+      embedding: none
+    ollama:
+      init:
+        pull-model-strategy: never
+server:
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never

@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:17.11
+    environment:
+      POSTGRES_DB: ugc
+      POSTGRES_USER: ugc
+      POSTGRES_PASSWORD: ugc
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U ugc -d ugc && PGPASSWORD=$$POSTGRES_PASSWORD psql -h localhost -U ugc -d ugc -tAc 'SELECT 1 FROM app_users LIMIT 0'"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      DATABASE_URL: jdbc:postgresql://db:5432/ugc
+      DATABASE_USER: ugc
+      DATABASE_PASSWORD: ugc
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
+    depends_on:
+      db:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: rebuild
+          path: ./src/main/kotlin
+        - action: rebuild
+          path: ./src/main/resources/application.yaml
+        - action: rebuild
+          path: ./src/main/resources/application-dev.yaml
+        - action: rebuild
+          path: ./src/main/resources/application-ai.yaml
+        - action: rebuild
+          path: ./build.gradle.kts
+        - action: rebuild
+          path: ./settings.gradle.kts
+        - action: rebuild
+          path: ./gradle.properties
+        - action: rebuild
+          path: ./gradle
+        - action: rebuild
+          path: ./Dockerfile
+        - action: sync
+          path: ./src/main/resources/templates
+          target: /workspace/src/main/resources/templates
+          initial_sync: true
+volumes:
+  pgdata:
+    name: is219-ugc-pgdata

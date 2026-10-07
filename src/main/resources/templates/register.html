@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Register</title></head>
+<body>
+<main>
+  <h1>Register</h1>
+  <form th:action="@{/register}" th:object="${registrationForm}" method="post">
+    <p><label for="displayName">Name</label><br>
+      <input id="displayName" th:field="*{displayName}" maxlength="100" autocomplete="name" required>
+      <span th:each="message : ${formErrors?.get('displayName')}" th:text="${message}"></span></p>
+    <p><label for="email">Email</label><br>
+      <input id="email" type="email" th:field="*{email}" maxlength="254" autocomplete="email" required>
+      <span th:each="message : ${formErrors?.get('email')}" th:text="${message}"></span></p>
+    <p><label for="password">Password</label><br>
+      <input id="password" name="password" type="password" minlength="8" maxlength="200" autocomplete="new-password" required>
+      <span th:each="message : ${formErrors?.get('password')}" th:text="${message}"></span></p>
+    <p><label for="passwordConfirmation">Confirm password</label><br>
+      <input id="passwordConfirmation" name="passwordConfirmation" type="password" maxlength="200" autocomplete="new-password" required>
+      <span th:each="message : ${formErrors?.get('passwordConfirmation')}" th:text="${message}"></span></p>
+    <button type="submit">Register</button>
+  </form>
+  <p><a th:href="@{/login}">Log in</a></p>
+</main>
+</body>
+</html>

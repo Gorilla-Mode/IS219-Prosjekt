@@ -1,26 +1,23 @@
 # IS-219
 
-Kotlin/Spring Boot prototype with username/password registration, login, in-memory accounts,
-and Spring AI configured for optional Ollama use.
+A simple Kotlin, Spring Boot, and Thymeleaf project with registration and login.
+Accounts are stored in memory and reset when the application restarts.
+AI is optional and disabled by default.
 
 Requires JDK 21. Set `JAVA_HOME` to your JDK 21 installation.
 
-Start from the repository root: `./gradlew bootRun --args='--spring.profiles.active=dev'`
-
-Test: `./gradlew test`
+Run these commands from the repository root:
 
 Build: `./gradlew build`
 
-Open: http://localhost:8080
+Run: `./gradlew bootRun --args='--spring.profiles.active=dev'`
 
-Stop with Ctrl+C. Restart after Kotlin or configuration changes.
-With the `dev` profile, template edits appear on browser refresh.
+Test: `./gradlew test`
 
-Every startup creates username `test` with password `test`.
-Registered accounts live only in memory and are lost on restart.
-The old PostgreSQL volume is preserved; its accounts are not migrated.
+Open http://localhost:8080 (port **8080**). Stop with Ctrl+C.
 
-Passwords are stored in plaintext for this local prototype.
-AI is disabled by default.
-Enable it with the `ai` profile alongside `dev`; Ollama defaults to
-`http://localhost:11434` (`OLLAMA_URL` and `OLLAMA_MODEL` can override it).
+Default account, created at every startup:
+
+| Username | Password |
+|----------|----------|
+| test     | test     |

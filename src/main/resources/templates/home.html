@@ -4,7 +4,7 @@
 <body>
 <main>
   <h1>Home</h1>
-  <p>Welcome, <span th:text="${displayName}">User</span>.</p>
+  <p>Welcome, <span th:text="${username}">User</span>.</p>
   <form th:action="@{/logout}" method="post"><button type="submit">Log out</button></form>
 </main>
 </body>

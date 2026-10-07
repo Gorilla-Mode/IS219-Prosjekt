@@ -18,9 +18,9 @@ class SecurityConfiguration {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .authorizeHttpRequests { it.requestMatchers("/register", "/login", "/error").permitAll().anyRequest().authenticated() }
+            .authorizeHttpRequests { it.requestMatchers("/register", "/login", "/error", "/css/**").permitAll().anyRequest().authenticated() }
             .formLogin {
-                it.loginPage("/login").usernameParameter("email")
+                it.loginPage("/login").usernameParameter("username")
                     .defaultSuccessUrl("/", true).failureUrl("/login?error").permitAll()
             }
             .logout { it.logoutSuccessUrl("/login?logout").invalidateHttpSession(true).deleteCookies("JSESSIONID") }

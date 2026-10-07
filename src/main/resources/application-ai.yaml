@@ -3,7 +3,7 @@ spring:
     model:
       chat: ollama
     ollama:
-      base-url: ${OLLAMA_URL:http://ollama:11434}
+      base-url: ${OLLAMA_URL:http://localhost:11434}
       chat:
         options:
           model: ${OLLAMA_MODEL:llama3.2:3b}

@@ -3,7 +3,7 @@ package no.olbrygging.ugc.account.controller
 import jakarta.validation.Valid
 import no.olbrygging.ugc.account.form.RegistrationForm
 import no.olbrygging.ugc.account.service.AccountService
-import no.olbrygging.ugc.account.service.EmailAlreadyRegisteredException
+import no.olbrygging.ugc.account.service.UsernameAlreadyRegisteredException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -25,21 +25,18 @@ class AccountController(private val accounts: AccountService) {
         errors: BindingResult,
         model: Model,
     ): String {
-        if (form.password != form.passwordConfirmation) {
-            errors.rejectValue("passwordConfirmation", "mismatch", "Passwords must match.")
-        }
         if (!errors.hasErrors()) {
             try {
-                accounts.register(form.email, form.displayName, form.password)
-                form.clearPasswords()
+                accounts.register(form.username, form.password)
+                form.clearPassword()
                 return "redirect:/login?registered"
-            } catch (_: EmailAlreadyRegisteredException) {
-                errors.rejectValue("email", "duplicate", "This email is already registered.")
+            } catch (_: UsernameAlreadyRegisteredException) {
+                errors.rejectValue("username", "duplicate", "This username is already registered.")
             }
         }
         // BindingResult can retain rejected password values; expose only safe messages.
         val messages = errors.fieldErrors.groupBy({ it.field }, { it.defaultMessage ?: "Invalid value." })
-        form.clearPasswords()
+        form.clearPassword()
         model.asMap().remove(BindingResult.MODEL_KEY_PREFIX + "registrationForm")
         model.addAttribute("formErrors", messages)
         return "register"

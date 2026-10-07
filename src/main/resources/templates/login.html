@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Log in</title></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in</title>
+  <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
 <body>
 <main>
   <h1>Log in</h1>
-  <p th:if="${param.error}" role="alert">Invalid email or password.</p>
+  <p th:if="${param.error}" class="error" role="alert">Invalid username or password.</p>
   <p th:if="${param.registered}">Registration complete. Please log in.</p>
   <p th:if="${param.logout}">You have logged out.</p>
   <form th:action="@{/login}" method="post">
-    <p><label for="email">Email</label><br><input id="email" name="email" type="email" maxlength="254" autocomplete="username" required></p>
-    <p><label for="password">Password</label><br><input id="password" name="password" type="password" maxlength="200" autocomplete="current-password" required></p>
+    <p><label for="username">Username</label><input id="username" name="username" maxlength="254" autocomplete="username" required></p>
+    <p><label for="password">Password</label><input id="password" name="password" type="password" maxlength="200" autocomplete="current-password" required></p>
     <button type="submit">Log in</button>
   </form>
   <p><a th:href="@{/register}">Register</a></p>

@@ -1,4 +1,4 @@
 spring:
   thymeleaf:
     cache: false
-    prefix: file:/workspace/src/main/resources/templates/
+    prefix: file:./src/main/resources/templates/

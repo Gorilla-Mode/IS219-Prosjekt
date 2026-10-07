@@ -1,8 +1,0 @@
-.git
-.gradle
-.kotlin
-build
-.idea
-*.iml
-.DS_Store
-.env

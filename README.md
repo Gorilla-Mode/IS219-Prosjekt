@@ -4,7 +4,9 @@ A simple Kotlin, Spring Boot, and Thymeleaf project with registration and login.
 Accounts are stored in memory and reset when the application restarts.
 AI is optional and disabled by default.
 
-Requires JDK 21. Set `JAVA_HOME` to your JDK 21 installation.
+Uses Kotlin 2.4.21, Spring Boot 4.1.1, and Gradle 9.8.1.
+Requires JDK 27. Set `JAVA_HOME` to your JDK 27 installation.
+Java and Kotlin target Java 26 bytecode, the highest target supported by Kotlin 2.4.21.
 
 Run these commands from the repository root:
 

@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "4.0.8"
+    kotlin("jvm") version "2.4.21"
+    kotlin("plugin.spring") version "2.4.21"
+    id("org.springframework.boot") version "4.1.1"
 }
 
 group = "no.olbrygging"
@@ -12,16 +12,22 @@ version = "0.0.1-SNAPSHOT"
 repositories { mavenCentral() }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(27)
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+        // Kotlin 2.4.21 supports bytecode through Java 26; build and run on JDK 27.
+        jvmTarget.set(JvmTarget.JVM_26)
+        freeCompilerArgs.add("-Xjsr305=strict")
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(26)
+}
+
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.8"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.1.1"))
     implementation(platform("org.springframework.ai:spring-ai-bom:2.0.1"))
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:2.4.21"))
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-security")

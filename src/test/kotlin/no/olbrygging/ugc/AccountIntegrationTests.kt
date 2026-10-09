@@ -70,6 +70,8 @@ class AccountIntegrationTests {
         mvc.perform(get("/").session(result.request.getSession(false) as MockHttpSession))
             .andExpect(status().isOk)
             .andExpect(content().string(containsString("&lt;b&gt;test user&lt;/b&gt;")))
+            .andExpect(content().string(containsString("href=\"/css/app.css\"")))
+            .andExpect(content().string(containsString("name=\"viewport\" content=\"width=device-width, initial-scale=1\"")))
             .andExpect(content().string(containsString("name=\"_csrf\"")))
     }
 
@@ -122,11 +124,12 @@ class AccountIntegrationTests {
     @Test
     fun `home requires authentication and public forms include csrf`() {
         mvc.perform(get("/")).andExpect(status().is3xxRedirection)
-        mvc.perform(get("/css/auth.css")).andExpect(status().isOk)
+        mvc.perform(get("/css/app.css")).andExpect(status().isOk)
             .andExpect(content().contentTypeCompatibleWith("text/css"))
         for (path in listOf("/login", "/register")) {
             mvc.perform(get(path)).andExpect(status().isOk)
-                .andExpect(content().string(containsString("href=\"/css/auth.css\"")))
+                .andExpect(content().string(containsString("href=\"/css/app.css\"")))
+                .andExpect(content().string(containsString("name=\"viewport\" content=\"width=device-width, initial-scale=1\"")))
                 .andExpect(content().string(containsString("name=\"_csrf\"")))
                 .andExpect(content().string(containsString("name=\"username\"")))
                 .andExpect(content().string(containsString("name=\"password\"")))

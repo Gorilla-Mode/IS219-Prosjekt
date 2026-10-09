@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Log in</title>
-  <link rel="stylesheet" th:href="@{/css/auth.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
-<body>
-<main>
-  <h1>Log in</h1>
+<body class="page-centered">
+<main class="card card-auth">
+  <h1 class="card-title">Log in</h1>
   <p th:if="${param.error}" class="error" role="alert">Invalid username or password.</p>
-  <p th:if="${param.registered}">Registration complete. Please log in.</p>
-  <p th:if="${param.logout}">You have logged out.</p>
-  <form th:action="@{/login}" method="post">
-    <p><label for="username">Username</label><input id="username" name="username" maxlength="254" autocomplete="username" required></p>
-    <p><label for="password">Password</label><input id="password" name="password" type="password" maxlength="200" autocomplete="current-password" required></p>
-    <button type="submit">Log in</button>
+  <p th:if="${param.registered}" class="notice notice-success" role="status">Registration complete. Please log in.</p>
+  <p th:if="${param.logout}" class="notice" role="status">You have logged out.</p>
+  <form class="form" th:action="@{/login}" method="post">
+    <p class="form-field"><label class="form-label" for="username">Username</label><input class="form-input" id="username" name="username" maxlength="254" autocomplete="username" required></p>
+    <p class="form-field"><label class="form-label" for="password">Password</label><input class="form-input" id="password" name="password" type="password" maxlength="200" autocomplete="current-password" required></p>
+    <button class="button button-full" type="submit">Log in</button>
   </form>
-  <p><a th:href="@{/register}">Register</a></p>
+  <p class="card-footer"><a th:href="@{/register}">Register</a></p>
 </main>
 </body>
 </html>

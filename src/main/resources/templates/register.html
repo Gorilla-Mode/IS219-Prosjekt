@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register</title>
-  <link rel="stylesheet" th:href="@{/css/auth.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
-<body>
-<main>
-  <h1>Register</h1>
-  <form th:action="@{/register}" th:object="${registrationForm}" method="post">
-    <p><label for="username">Username</label>
-      <input id="username" th:field="*{username}" maxlength="254" autocomplete="username" required>
+<body class="page-centered">
+<main class="card card-auth">
+  <h1 class="card-title">Register</h1>
+  <form class="form" th:action="@{/register}" th:object="${registrationForm}" method="post">
+    <p class="form-field"><label class="form-label" for="username">Username</label>
+      <input class="form-input" id="username" th:field="*{username}" maxlength="254" autocomplete="username" required>
       <span class="error" th:each="message : ${formErrors?.get('username')}" th:text="${message}"></span></p>
-    <p><label for="password">Password</label>
-      <input id="password" name="password" type="password" maxlength="200" autocomplete="new-password" required>
+    <p class="form-field"><label class="form-label" for="password">Password</label>
+      <input class="form-input" id="password" name="password" type="password" maxlength="200" autocomplete="new-password" required>
       <span class="error" th:each="message : ${formErrors?.get('password')}" th:text="${message}"></span></p>
-    <button type="submit">Register</button>
+    <button class="button button-full" type="submit">Register</button>
   </form>
-  <p><a th:href="@{/login}">Log in</a></p>
+  <p class="card-footer"><a th:href="@{/login}">Log in</a></p>
 </main>
 </body>
 </html>

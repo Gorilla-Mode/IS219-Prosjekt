@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Home</title></head>
-<body>
-<main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="page-centered">
+<main class="card card-home">
   <h1>Home</h1>
   <p>Welcome, <span th:text="${username}">User</span>.</p>
-  <form th:action="@{/logout}" method="post"><button type="submit">Log out</button></form>
+  <form th:action="@{/logout}" method="post"><button class="button button-secondary" type="submit">Log out</button></form>
 </main>
 </body>
 </html>
